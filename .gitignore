@@ -6,3 +6,5 @@
 *.pdf
 *.docx
 *_files
+*.csv
+!od-data-clean.csv
