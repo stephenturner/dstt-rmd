@@ -1,0 +1,152 @@
+---
+title: "EDA: NVSS Drug Overdose Death Counts"
+author: "Stephen D. Turner, Ph.D."
+date: "August 16, 2023"
+output: 
+  html_document: 
+    toc: yes
+    fig_caption: yes
+    code_folding: 'show'
+---
+
+```{r}
+library(knitr)
+opts_chunk$set(echo = TRUE, message=TRUE)
+```
+
+# Introduction
+
+In this analysis we are going to download, clean, and perform some exploratory data analysis (EDA) on the Monthly Provisional Drug Overdose Death Counts data provided by the National Vital Statistics System via the CDC's open data platform.
+
+# Data
+
+## Data acquisition
+
+- More information on the NVSS data: https://www.cdc.gov/nchs/nvss/vsrr/drug-overdose-data.htm
+- Data source: https://data.cdc.gov/NCHS/VSRR-Provisional-Drug-Overdose-Death-Counts/xkb8-kh2a/
+
+First let's download the data. Note that this only downloads the data if it doesn't already exist.
+
+```{r}
+if (!file.exists("od-data-orig.csv")) {
+  download.file(url = "https://data.cdc.gov/api/views/xkb8-kh2a/rows.csv?accessType=DOWNLOAD", 
+                destfile="od-data-orig.csv")
+}
+```
+
+## Data cleaning
+
+Now let's read in the data. First we'll need to load some packages we'll be using here.
+
+```{r, message=FALSE}
+library(dplyr)
+library(readr)
+library(tidyr)
+library(janitor)
+```
+
+```{r}
+orig <- read_csv("od-data-orig.csv")
+```
+
+`read_csv()` is throwing a warning, and gives us a hint that we should look at problems with the data. Let's do that.
+
+```{r}
+problems(orig)
+```
+
+This is telling us that readr tried reading this variable in as a numeric variable, but it encountered something that isn't numeric ("99.5+"). Let's look at the first few rows of this data. 
+
+```{r}
+orig
+```
+
+Column 7, the problematic column, is a measure of the percent completeness ([more information here](https://www.cdc.gov/nchs/nvss/vsrr/drug-overdose-data.htm#percent_completeness)). The "+" character in the ones recorded as "99.5+" is causing this issue. 
+
+Let's read in the original data again, but this time tell readr to use many more rows for type inference. This way it will get read in correctly as a character variable, and we'll fix it later. If this quick fix doesn't do the trick, we can manually specify the column types (see `?read_csv` for details).
+
+```{r}
+orig <- read_csv("od-data-orig.csv", guess_max = 5000L)
+```
+
+Now, let's deal with this, and many other things while we're at it. 
+
+1. Make the variable names easier to work with.
+1. Fix the 99.5+ issue by converting all these to 99.5, and then converting the column to numeric.
+1. Select only overdose counts and total death counts.
+1. Summarize each of those up by state, by year.
+1. Reshape the data to make further calculations easier.
+1. Calculate the proportion of total deaths in that state for that year that were due to drug overdoses.
+
+```{r}
+# Clean the data up
+d <-
+  orig |>
+  # Make your variable names easier to work with
+  clean_names() |>
+  # Fix the problem of 99.5+ being read as character. Change to 100 then numeric.
+  mutate(percent_complete=gsub("99.5\\+", "99.5", percent_complete)) |>
+  mutate(percent_complete=as.numeric(percent_complete)) |>
+  # select only columns of interest
+  select(state:data_value) |>
+  # Remove the cruft at the end of the indicator
+  mutate(indicator=gsub(" \\(.*", "", indicator)) |>
+  # Select only ODs and death numbers
+  filter(indicator %in% c("Number of Drug Overdose Deaths", "Number of Deaths")) |>
+  # Sum each of those by state-year
+  group_by(state, year, indicator) |>
+  summarize(sum=sum(data_value), .groups="drop") |>
+  # Make the data wider
+  pivot_wider(names_from=indicator, values_from=sum) |>
+  rlang::set_names(c("state", "year", "ndeath", "nod")) |>
+  # Calculate the percentage of death by OD (pod) by the total number of deaths
+  mutate(pod=nod/ndeath)
+```
+
+Let's take a look at this data now. We have one row per state per year indicating the number of deaths, the number of drug overdose deaths, and the percentage of deaths due to drug overdose.
+
+```{r}
+d
+```
+
+Let's write this data to file to make downstream analysis easier.
+
+```{r}
+d |> write_csv("od-data-clean.csv")
+```
+
+
+# Exploratory data analysis
+
+The `kable()` function in the knitr package will print any rectangular data frame into a [markdown-formatted table](https://www.markdownguide.org/extended-syntax/#tables), which when rendered will display nicely in whatever output format you choose. Let's use `kable()` to print a table. Let's use a caption and use commas to separate the thousands places in these big numbers.
+
+If we want to change this to summarize a different feature, or remove a certain year (e.g., 2023, which is incomplete), we can simply change the code and recompile the document.
+
+```{r}
+library(knitr)
+d |> 
+  group_by(year) |> 
+  summarize(us_deaths=sum(ndeath)) |> 
+  mutate(year=as.character(year)) |> 
+  kable(caption="Total number of deaths in the US.",
+        format.args=list(big.mark = ','))
+```
+
+Now lets make a simple plot showing the percentage of deaths by drug overdose for select states over the 5 year period from 2018-2022.
+
+If we wanted to change this plot, e.g., by adding or removing a state, or using a different color scheme, we can simply change the code and recompile the document.
+
+```{r, fig.cap="Percentage of deaths by drug overdose in select states, 2018-2022."}
+library(ggplot2)
+d |>
+  filter(year>=2018 & year<=2022) |>
+  filter(state %in% c("WA", "TX", "VA", "OR", "HI")) |>
+  ggplot(aes(year, pod, col=state)) + 
+  geom_line() + 
+  geom_point() +
+  theme_classic() + 
+  scale_color_viridis_d() +
+  theme(legend.position="bottom") + 
+  labs(x="Year", y="Percentage of deaths by drug OD", col="State")
+```
+
