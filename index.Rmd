@@ -1,0 +1,112 @@
+---
+title: "Monthly Provisional Drug Overdose Death Counts"
+output: 
+  flexdashboard::flex_dashboard:
+    theme:
+      bg: "#101010"
+      fg: "#FDF7F7" 
+      primary: "#70d44b"
+      base_font:
+        google: 
+          family: Chakra Petch
+          wght: 500
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(readr)
+library(dplyr)
+library(knitr)
+library(flexdashboard)
+library(ggplot2)
+thematic::thematic_rmd()
+
+# read in data
+d <- read_csv("od-data-clean.csv", col_types="ciiid")
+
+# states to highlight
+mystates <- c("WA", "TX", "OR", "HI")
+```
+
+Summary analysis from the [Monthly Provisional Drug Overdose Death Counts data provided by the National Vital Statistics System](https://www.cdc.gov/nchs/nvss/vsrr/drug-overdose-data.htm) via the [CDC's open data platform](https://data.cdc.gov/NCHS/VSRR-Provisional-Drug-Overdose-Death-Counts/xkb8-kh2a/). Built using Flexdashboard ([source code](https://github.com/stephenturner/dstt-rmd/blob/main/index.Rmd)).
+
+Last updated: **`r Sys.Date()`**.
+
+
+Column {data-width=500 .tabset}
+-----------------------------------------------------------------------
+
+### Full data
+
+```{r}
+d |> 
+  mutate(pod=scales::percent(pod, accuracy=0.01)) |> 
+  mutate(across(c(ndeath, nod), scales::comma)) |> 
+  rlang::set_names("State", "Year", "# Deaths", "# Drug OD Deaths", "% Deaths by Drug OD") |> 
+  DT::datatable(filter="top")
+```
+
+### Summary by year
+
+```{r}
+d |> 
+  group_by(year) |> 
+  summarize(ndeath=sum(ndeath), nod=sum(nod)) |> 
+  mutate(pod=nod/ndeath) |> 
+  mutate(pod=scales::percent(pod, accuracy=.01)) |> 
+  mutate(across(c(ndeath, nod), scales::comma)) |> 
+  kable()
+```
+
+### Summary by state (2018-2022)
+
+```{r}
+d |> 
+  group_by(state) |> 
+  summarize(ndeath=sum(ndeath), nod=sum(nod)) |> 
+  mutate(pod=nod/ndeath) |> 
+  mutate(pod=scales::percent(pod, accuracy=.01)) |> 
+  mutate(across(c(ndeath, nod), scales::comma)) |> 
+  arrange(state) |> 
+  kable()
+```
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### % Death by OD by year (select states)
+
+```{r}
+p <- 
+  d |>
+  filter(year>=2018 & year<=2022) |>
+  filter(state %in% mystates) |>
+  ggplot(aes(year, pod, col=state)) + 
+  geom_line() + 
+  geom_point() +
+  theme(legend.position="bottom") + 
+  scale_y_continuous(labels=scales::percent) + 
+  labs(x="Year", y="Percentage of deaths by drug OD", col="State")
+p
+```
+
+### # OD Deaths by state (2018-2022)
+
+```{r, fig.width=10}
+d |> 
+  filter(year>=2018 & year<=2022) |>
+  group_by(state) |> 
+  summarize(nod=sum(nod)) |> 
+  filter(state!="US") |> 
+  mutate(highlight=state %in% mystates) |> 
+  mutate(state=reorder(state, nod)) |> 
+  mutate(statecol=ifelse(highlight, as.character(state), NA)) |> 
+  ggplot(aes(state, nod)) + geom_col(aes(fill=statecol)) + 
+  # coord_flip() + 
+  theme(legend.position="none") + 
+  scale_x_discrete(guide = guide_axis(n.dodge = 2)) + 
+  scale_y_continuous(labels=scales::number) + 
+  labs(x="State", y="Number of overdeaths 2018-2022")
+```
+
