@@ -1,7 +1,5 @@
 # Reproducible Research with RMarkdown
 
-Workshop materials for the CSTE DSTT RMarkdown workshop (August 16, 2023).
-
 See the rendered dashboard example here: **https://stephenturner.github.io/dstt-rmd/**.
 
 ## Rendering these documents
@@ -9,7 +7,7 @@ See the rendered dashboard example here: **https://stephenturner.github.io/dstt-
 First, install the packages used by all the code here:
 
 ```r
-install.packages(c("knitr", "rmarkdown", "dplyr", "readr", "janitor", "flexdashboard", "rticles"))
+install.packages(c("knitr", "rmarkdown", "dplyr", "readr", "janitor", "flexdashboard", "reticulate", "rticles"))
 ```
 
 Render all documents in this repo:
