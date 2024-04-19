@@ -158,7 +158,7 @@ vlong |>
   ggplot(aes(Year, meancov)) + geom_col(aes(fill=Vaccine), position="dodge")
 ```
 
-![](pivot_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](pivot_files/figure-gfm/vaccine-analysis-plot-1.png)<!-- -->
 
 ## Example 2: Infections tracking
 

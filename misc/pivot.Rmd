@@ -50,7 +50,7 @@ vlong
 
 Now that the data is in a long format, we can do some analysis and visualization on it. 
 
-```{r, message=FALSE}
+```{r vaccine-analysis-plot, message=FALSE}
 # Mean coverage by year
 vlong |> 
   group_by(Year) |> 
