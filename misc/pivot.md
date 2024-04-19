@@ -170,18 +170,6 @@ analysis on this data.
 
 ``` r
 idat <- read_csv("pivot-data-infections.csv")
-```
-
-    ## Rows: 5 Columns: 7
-    ## ── Column specification ────────────────────────────────────────────────────────
-    ## Delimiter: ","
-    ## chr  (4): patient, org_1, org_2, org_3
-    ## date (3): visit_1, visit_2, visit_3
-    ## 
-    ## ℹ Use `spec()` to retrieve the full column specification for this data.
-    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-
-``` r
 idat
 ```
 

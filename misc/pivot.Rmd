@@ -72,7 +72,7 @@ vlong |>
 
 In this example, imagine that we have been tracking patients over multiple visits, recording which infectious diseases they may have tested positive for. The features here (visit and organism) are spread over multiple columns, making it impossible to do any kind of summary analysis on this data. 
 
-```{r}
+```{r, message=FALSE}
 idat <- read_csv("pivot-data-infections.csv")
 idat
 ```
