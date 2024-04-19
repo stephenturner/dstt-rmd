@@ -6,6 +6,5 @@
 *.pdf
 *.docx
 *_files
-*.csv
-!od-data-clean.csv
+od-data-orig.csv
 !index.html
