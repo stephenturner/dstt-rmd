@@ -1,12 +1,111 @@
 ---
-title: "Pivot demo"
+title: "Tidy data and `tidyr::pivot_longer()`"
 output: 
   github_document:
     toc: true
     df_print: kable
 ---
 
-```{r}
+# Background
 
+Tidy data principles are crucial in public health data analysis for ensuring that datasets are structured in a way that facilitates insight and decision-making. According to the [tidy data](https://vita.had.co.nz/papers/tidy-data.pdf) concept, each variable should form a column, each observation should form a row, and each type of observational unit should form a table. This structure makes it straightforward to apply various data manipulation and analysis techniques consistently across different datasets. In the context of public health, where data often includes multiple measurements over time, such as vaccination rates, infection counts, or patient outcomes across different groups and locations, applying tidy data principles helps in simplifying the data management process. By reformatting data from wide formats (where multiple observations are in one row) to long formats (where each row is a single observation), public health practitioners can more easily perform trend analyses, generate reports, and build models that inform public health policy and responses. This approach not only enhances the clarity and accessibility of data but also supports robust analytical capabilities that are essential for effective public health interventions.
+
+# Examples
+
+First let's load the libraries we'll use in this analysis.
+
+```{r, message=FALSE}
+library(readr)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+```
+
+
+## Example 1: Immunization coverage
+
+Context: Suppose you have a dataset tracking immunization coverage for different vaccines across several years in a particular region. The data is currently in a wide format, where each row represents a region and each column represents the coverage rate for a specific vaccine in a specific year.
+
+Objective: Convert this wide format data into a long format to facilitate easier analysis and visualization of trends over time and across vaccines.
+
+Here's the wide data: 
+
+```{r, message=FALSE}
+vdat <- read_csv("pivot-data-vaccine.csv")
+vdat
+```
+
+We can use the [`pivot_longer()` function from tidyr](https://tidyr.tidyverse.org/reference/pivot_longer.html) to reshape this data from wide to long. Let's also try to parse a numeric value out of the percentage column, which currently comes through as a character (string).
+
+```{r}
+vlong <- 
+  vdat |> 
+  pivot_longer(cols = -Region, 
+               names_to = c("Vaccine", "Year"), 
+               names_sep = "_",
+               values_to = "Coverage") |> 
+  dplyr::mutate(Coverage=parse_number(Coverage))
+vlong
+```
+
+Now that the data is in a long format, we can do some analysis and visualization on it. 
+
+```{r, message=FALSE}
+# Mean coverage by year
+vlong |> 
+  group_by(Year) |> 
+  summarize(meancov=mean(Coverage))
+
+# Mean coverage by vaccine by year
+vlong |> 
+  group_by(Vaccine, Year) |> 
+  summarize(meancov=mean(Coverage))
+
+# Mean coverage by vaccine by year plot
+vlong |> 
+  group_by(Vaccine, Year) |> 
+  summarize(meancov=mean(Coverage)) |> 
+  ggplot(aes(Year, meancov)) + geom_col(aes(fill=Vaccine), position="dodge")
+```
+
+## Example 2: Infections tracking
+
+In this example, imagine that we have been tracking patients over multiple visits, recording which infectious diseases they may have tested positive for. The features here (visit and organism) are spread over multiple columns, making it impossible to do any kind of summary analysis on this data. 
+
+```{r}
+idat <- read_csv("pivot-data-infections.csv")
+idat
+```
+
+This format is ideal for analysis as each row clearly defines an event (a patient visit and the organism identified), making it easier to track patient progress, treatment efficacy, and infection trends over time. This method greatly enhances the data's usability for statistical testing and graphical representation.
+
+```{r}
+ilong <- 
+  idat |> 
+  pivot_longer(
+    cols = -patient,
+    names_to = c(".value", "Group"),
+    names_pattern = "(\\w+)_(\\d+)"
+  ) |> 
+  filter(!is.na(visit))
+ilong
+```
+
+Now we can start to do some analysis.
+
+```{r}
+# How many visits does each patient have?
+ilong |> 
+  group_by(patient) |> 
+  summarize(n_visits = n())
+
+# How many distinct patients has each organism been found in?
+ilong |> 
+  group_by(org) |> 
+  summarize(n_patients = n_distinct(patient))
+
+# What are the earliest and latest dates we have in our data?
+ilong |> 
+  summarize(start=min(visit), end=max(visit))
 ```
 
