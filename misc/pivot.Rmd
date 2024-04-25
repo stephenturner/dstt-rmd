@@ -31,7 +31,7 @@ Objective: Convert this wide format data into a long format to facilitate easier
 Here's the wide data: 
 
 ```{r, message=FALSE}
-vdat <- read_csv("pivot-data-vaccine.csv")
+vdat <- read_csv(here::here("misc/pivot-data-vaccine.csv"))
 vdat
 ```
 
@@ -73,7 +73,7 @@ vlong |>
 In this example, imagine that we have been tracking patients over multiple visits, recording which infectious diseases they may have tested positive for. The features here (visit and organism) are spread over multiple columns, making it impossible to do any kind of summary analysis on this data. 
 
 ```{r, message=FALSE}
-idat <- read_csv("pivot-data-infections.csv")
+idat <- read_csv(here::here("misc/pivot-data-infections.csv"))
 idat
 ```
 

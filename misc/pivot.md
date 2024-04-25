@@ -54,7 +54,7 @@ across vaccines.
 Here’s the wide data:
 
 ``` r
-vdat <- read_csv("pivot-data-vaccine.csv")
+vdat <- read_csv(here::here("misc/pivot-data-vaccine.csv"))
 vdat
 ```
 
@@ -169,7 +169,7 @@ over multiple columns, making it impossible to do any kind of summary
 analysis on this data.
 
 ``` r
-idat <- read_csv("pivot-data-infections.csv")
+idat <- read_csv(here::here("misc/pivot-data-infections.csv"))
 idat
 ```
 
