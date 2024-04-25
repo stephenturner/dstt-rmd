@@ -4,7 +4,7 @@ vdat <- tibble::tribble(
   "South",       "72%",       "75%",         "85%",         "87%",       "71%",         "84%",
   "East",       "80%",       "82%",         "90%",         "93%",       "79%",         "80%"
 )
-vdat |> readr::write_csv(here::here("misc/pivot-data-vaccine.csv"))
+vdat |> readr::write_csv(here::here("misc/pivot-data-vaccine.csv"), na="")
 
 idat <- tibble::tribble(
   ~patient,     ~visit_1,     ~visit_2,     ~visit_3,       ~org_1, ~org_2,       ~org_3,
@@ -14,4 +14,4 @@ idat <- tibble::tribble(
   "jane", "2023-12-28", "2024-01-02", "2024-03-05",      "covid",  "flu", "covid",
   "jim", "2023-11-19", "2024-02-15",           NA, "salmonella",  "rsv",           NA
 )
-idat |> readr::write_csv(here::here("misc/pivot-data-infections.csv"))
+idat |> readr::write_csv(here::here("misc/pivot-data-infections.csv"), na="")

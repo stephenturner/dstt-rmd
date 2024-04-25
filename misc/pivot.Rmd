@@ -21,6 +21,10 @@ library(dplyr)
 library(ggplot2)
 ```
 
+```{r, echo=FALSE}
+options(knitr.kable.NA = '')
+```
+
 
 ## Example 1: Immunization coverage
 
