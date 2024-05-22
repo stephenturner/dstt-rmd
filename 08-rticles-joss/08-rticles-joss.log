@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.4.9)  1 AUG 2023 13:28
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.4.9)  22 MAY 2024 11:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -979,38 +979,37 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 )
 \cslhangindent=\skip93
 \csllabelwidth=\skip94
-\cslentryspacingunit=\skip95
 \@quotelevel=\count468
 \@quotereset=\count469
 (./08-rticles-joss.aux)
 \openout1 = `08-rticles-joss.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 269.
-LaTeX Font Info:    ... okay on input line 269.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 269.
-LaTeX Font Info:    ... okay on input line 269.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 269.
-LaTeX Font Info:    ... okay on input line 269.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 269.
-LaTeX Font Info:    ... okay on input line 269.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 269.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 275.
+LaTeX Font Info:    ... okay on input line 275.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 275.
+LaTeX Font Info:    ... okay on input line 275.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 275.
+LaTeX Font Info:    ... okay on input line 275.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 275.
+LaTeX Font Info:    ... okay on input line 275.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 275.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 2
-69.
+75.
 (/usr/local/texlive/2023/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 269.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 269.
-LaTeX Font Info:    ... okay on input line 269.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 269.
-LaTeX Font Info:    ... okay on input line 269.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 269.
-LaTeX Font Info:    ... okay on input line 269.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 269.
-LaTeX Font Info:    ... okay on input line 269.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 269.
-LaTeX Font Info:    ... okay on input line 269.
-Package hyperref Info: Link coloring ON on input line 269.
+LaTeX Font Info:    ... okay on input line 275.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 275.
+LaTeX Font Info:    ... okay on input line 275.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 275.
+LaTeX Font Info:    ... okay on input line 275.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 275.
+LaTeX Font Info:    ... okay on input line 275.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 275.
+LaTeX Font Info:    ... okay on input line 275.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 275.
+LaTeX Font Info:    ... okay on input line 275.
+Package hyperref Info: Link coloring ON on input line 275.
 (./08-rticles-joss.out) (./08-rticles-joss.out)
 \@outlinefile=\write6
 \openout6 = `08-rticles-joss.out'.
@@ -1031,8 +1030,8 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file '08-rticles-joss.bbl' not found.
 No file 08-rticles-joss.bbl.
-Package biblatex Info: Reference section=0 on input line 269.
-Package biblatex Info: Reference segment=0 on input line 269.
+Package biblatex Info: Reference section=0 on input line 275.
+Package biblatex Info: Reference segment=0 on input line 275.
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -1067,12 +1066,12 @@ Package biblatex Info: Reference segment=0 on input line 269.
 * \@reversemargintrue
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Redefining \microtypecontext on input line 269.
-Package microtype Info: Applying patch `item' on input line 269.
-Package microtype Info: Applying patch `toc' on input line 269.
-Package microtype Info: Applying patch `eqnum' on input line 269.
-Package microtype Info: Applying patch `footnote' on input line 269.
-Package microtype Info: Applying patch `verbatim' on input line 269.
+LaTeX Info: Redefining \microtypecontext on input line 275.
+Package microtype Info: Applying patch `item' on input line 275.
+Package microtype Info: Applying patch `toc' on input line 275.
+Package microtype Info: Applying patch `eqnum' on input line 275.
+Package microtype Info: Applying patch `footnote' on input line 275.
+Package microtype Info: Applying patch `verbatim' on input line 275.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: No adjustment of tracking.
@@ -1091,14 +1090,14 @@ Package microtype Info: Loading generic protrusion settings for font family
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 270
+LaTeX Font Info:    Trying to load font information for U+msa on input line 276
 .
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 270
+LaTeX Font Info:    Trying to load font information for U+msb on input line 276
 .
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1106,20 +1105,20 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 
-Package hyperref Warning: Suppressing link with empty target on input line 296.
+Package hyperref Warning: Suppressing link with empty target on input line 302.
 
 
 
-Package hyperref Warning: Suppressing link with empty target on input line 296.
+Package hyperref Warning: Suppressing link with empty target on input line 302.
 
 
 
-Package hyperref Warning: Suppressing link with empty target on input line 296.
+Package hyperref Warning: Suppressing link with empty target on input line 302.
 
 
-File: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/library/rtic
+File: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/rtic
 les/rmarkdown/templates/joss/resources/JOSS-logo.png Graphic file (type bmp)
-</Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/library/rticles/r
+</Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/rticles/r
 markdown/templates/joss/resources/JOSS-logo.png>
 
 Package fancyhdr Warning: \headheight is too small (62.59596pt): 
@@ -1130,18 +1129,18 @@ Package fancyhdr Warning: \headheight is too small (62.59596pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.95425pt}.
 
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <8> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 363.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 365.
 [1
 
 ]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 369.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 371.
 File: 08-rticles-joss_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (ty
 pe pdf)
 <use 08-rticles-joss_files/figure-latex/unnamed-chunk-1-1.pdf>
-File: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/library/rtic
+File: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/rtic
 les/rmarkdown/templates/joss/resources/JOSS-logo.png Graphic file (type bmp)
-</Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/library/rticles/r
+</Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/rticles/r
 markdown/templates/joss/resources/JOSS-logo.png>
 
 Package fancyhdr Warning: \headheight is too small (62.59596pt): 
@@ -1159,10 +1158,10 @@ Package logreq Info: Writing requests to '08-rticles-joss.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 36826 strings out of 476683
- 754469 string characters out of 5804048
+ 36833 strings out of 476683
+ 754551 string characters out of 5804048
  1868018 words of memory out of 5000000
- 56508 multiletter control sequences out of 15000+600000
+ 56515 multiletter control sequences out of 15000+600000
  519167 words of font info for 81 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  84i,12n,81p,1204b,848s stack positions out of 10000i,1000n,20000p,200000b,200000s

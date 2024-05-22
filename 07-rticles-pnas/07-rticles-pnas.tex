@@ -14,29 +14,35 @@
 
 
 % Pandoc citation processing
+%From Pandoc 3.1.8
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
 \newlength{\cslhangindent}
 \setlength{\cslhangindent}{1.5em}
 \newlength{\csllabelwidth}
 \setlength{\csllabelwidth}{3em}
-\newlength{\cslentryspacingunit} % times entry-spacing
-\setlength{\cslentryspacingunit}{\parskip}
-% for Pandoc 2.8 to 2.10.1
-\newenvironment{cslreferences}%
-  {}%
-  {\par}
-% For Pandoc 2.11+
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
   % turn on hanging indent if param 1 is 1
   \ifodd #1
-  \let\oldpar\par
-  \def\par{\hangindent=\cslhangindent\oldpar}
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
   \fi
   % set entry spacing
-  \setlength{\parskip}{#2\cslentryspacingunit}
- }%
- {}
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
 \usepackage{calc}
 \newcommand{\CSLBlock}[1]{#1\hfill\break}
 \newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
@@ -121,9 +127,8 @@ Note: please start your introduction without including the word
 Physical Sciences section); this heading is implied in the first
 paragraphs.
 
-\hypertarget{guide-to-using-this-template}{%
 \section*{Guide to using this
-template}\label{guide-to-using-this-template}}
+template}\label{guide-to-using-this-template}
 \addcontentsline{toc}{section}{Guide to using this template}
 
 Please note that whilst this template provides a preview of the typeset
@@ -133,8 +138,7 @@ information please see the
 \href{http://www.pnas.org/site/authors/format.xhtml}{PNAS Information
 for Authors}.
 
-\hypertarget{author-affiliations}{%
-\subsection*{Author Affiliations}\label{author-affiliations}}
+\subsection*{Author Affiliations}\label{author-affiliations}
 \addcontentsline{toc}{subsection}{Author Affiliations}
 
 Include department, institution, and complete address, with the
@@ -142,8 +146,7 @@ ZIP/postal code, for each author. Use lower case letters to match
 authors with institutions, as shown in the example. Authors with an
 ORCID ID may supply this information at submission.
 
-\hypertarget{submitting-manuscripts}{%
-\subsection*{Submitting Manuscripts}\label{submitting-manuscripts}}
+\subsection*{Submitting Manuscripts}\label{submitting-manuscripts}
 \addcontentsline{toc}{subsection}{Submitting Manuscripts}
 
 All authors must submit their articles at
@@ -151,8 +154,7 @@ All authors must submit their articles at
 are using Overleaf to write your article, you can use the ``Submit to
 PNAS'' option in the top bar of the editor window.
 
-\hypertarget{format}{%
-\subsection*{Format}\label{format}}
+\subsection*{Format}\label{format}
 \addcontentsline{toc}{subsection}{Format}
 
 Many authors find it useful to organize their manuscripts with the
@@ -161,8 +163,7 @@ Abstract, Significance Statement, Results, Discussion, Materials and
 methods, Acknowledgments, and References. Other orders and headings are
 permitted.
 
-\hypertarget{manuscript-length}{%
-\subsection*{Manuscript Length}\label{manuscript-length}}
+\subsection*{Manuscript Length}\label{manuscript-length}
 \addcontentsline{toc}{subsection}{Manuscript Length}
 
 PNAS generally uses a two-column format averaging 67 characters,
@@ -174,8 +175,7 @@ and/or equations in addition to text, keep the text for your manuscript
 under 39,000 characters (including spaces) for Direct Submissions and
 72,000 characters (including spaces) for PNAS PLUS.
 
-\hypertarget{references}{%
-\subsection*{References}\label{references}}
+\subsection*{References}\label{references}
 \addcontentsline{toc}{subsection}{References}
 
 References should be cited in numerical order as they appear in text;
@@ -185,8 +185,7 @@ manuscript file. References appearing in both sections should not be
 duplicated. SI references included in tables should be included with the
 main reference section.
 
-\hypertarget{data-archival}{%
-\subsection*{Data Archival}\label{data-archival}}
+\subsection*{Data Archival}\label{data-archival}
 \addcontentsline{toc}{subsection}{Data Archival}
 
 PNAS must be able to archive the data essential to a published article.
@@ -194,9 +193,7 @@ Where such archiving is not possible, deposition of data in public
 databases, such as GenBank, ArrayExpress, Protein Data Bank, Unidata,
 and others outlined in the Information for Authors, is acceptable.
 
-\hypertarget{language-editing-services}{%
-\subsection*{Language-Editing
-Services}\label{language-editing-services}}
+\subsection*{Language-Editing Services}\label{language-editing-services}
 \addcontentsline{toc}{subsection}{Language-Editing Services}
 
 Prior to submission, authors who believe their manuscripts would benefit
@@ -212,8 +209,7 @@ their use has no bearing on acceptance of a manuscript for publication.
 justification setting.{}}
 \end{figure}
 
-\hypertarget{sec:figures}{%
-\subsection*{Digital Figures}\label{sec:figures}}
+\subsection*{Digital Figures}\label{sec:figures}
 \addcontentsline{toc}{subsection}{Digital Figures}
 
 Only TIFF, EPS, and high-resolution PDF for Mac or PC are allowed for
@@ -233,8 +229,7 @@ figure. To insert a figure wider than one column, please use the
 environment. Figures wider than one column should be sized to 11.4 cm or
 17.8 cm wide.
 
-\hypertarget{single-column-equations}{%
-\subsection*{Single column equations}\label{single-column-equations}}
+\subsection*{Single column equations}\label{single-column-equations}
 \addcontentsline{toc}{subsection}{Single column equations}
 
 Authors may use 1- or 2-column equations in their article, according to
@@ -259,9 +254,8 @@ be possible to correct the situation using commands
        &=x^3+3x^2y+3xy^3+x^3. 
 \end{aligned}\]
 
-\hypertarget{supporting-information-si}{%
 \subsection*{Supporting Information
-(SI)}\label{supporting-information-si}}
+(SI)}\label{supporting-information-si}
 \addcontentsline{toc}{subsection}{Supporting Information (SI)}
 
 The main text of the paper must stand on its own without the SI. Refer
@@ -276,15 +270,13 @@ technique, then the methods must be described completely in the main
 text. Because PNAS edits SI and composes it into a single PDF, authors
 must provide the following file formats only.
 
-\hypertarget{si-text}{%
-\subsubsection*{SI Text}\label{si-text}}
+\subsubsection*{SI Text}\label{si-text}
 \addcontentsline{toc}{subsubsection}{SI Text}
 
 Supply Word, RTF, or LaTeX files (LaTeX files must be accompanied by a
 PDF with the same file name for visual reference).
 
-\hypertarget{si-figures}{%
-\subsubsection*{SI Figures}\label{si-figures}}
+\subsubsection*{SI Figures}\label{si-figures}
 \addcontentsline{toc}{subsubsection}{SI Figures}
 
 Provide a brief legend for each supporting figure after the supporting
@@ -294,16 +286,14 @@ TIFF files, use only LZW compression; do not use JPEG compression. Do
 not save figure numbers, legends, or author names as part of the image.
 Composite figures must be pre-assembled.
 
-\hypertarget{d-figures}{%
-\subsubsection*{3D Figures}\label{d-figures}}
+\subsubsection*{3D Figures}\label{d-figures}
 \addcontentsline{toc}{subsubsection}{3D Figures}
 
 Supply a composable U3D or PRC file so that it may be edited and
 composed. Authors may submit a PDF file but please note it will be
 published in raw format and will not be edited or composed.
 
-\hypertarget{si-tables}{%
-\subsubsection*{SI Tables}\label{si-tables}}
+\subsubsection*{SI Tables}\label{si-tables}
 \addcontentsline{toc}{subsubsection}{SI Tables}
 
 Supply Word, RTF, or LaTeX files (LaTeX files must be accompanied by a
@@ -311,15 +301,13 @@ PDF with the same file name for visual reference); include only one
 table per file. Do not use tabs or spaces to separate columns in Word
 tables.
 
-\hypertarget{si-datasets}{%
-\subsubsection*{SI Datasets}\label{si-datasets}}
+\subsubsection*{SI Datasets}\label{si-datasets}
 \addcontentsline{toc}{subsubsection}{SI Datasets}
 
 Supply Excel (.xls), RTF, or PDF files. This file type will be published
 in raw format and will not be edited or composed.
 
-\hypertarget{si-movies}{%
-\subsubsection*{SI Movies}\label{si-movies}}
+\subsubsection*{SI Movies}\label{si-movies}
 \addcontentsline{toc}{subsubsection}{SI Movies}
 
 Supply Audio Video Interleave (avi), Quicktime (mov), Windows Media
@@ -328,15 +316,13 @@ each movie in a Word or RTF file. All movies should be submitted at the
 desired reproduction size and length. Movies should be no more than 10
 MB in size.
 
-\hypertarget{still-images}{%
-\subsubsection*{Still images}\label{still-images}}
+\subsubsection*{Still images}\label{still-images}
 \addcontentsline{toc}{subsubsection}{Still images}
 
 Authors must provide a still image from each video file. Supply TIFF,
 EPS, high-resolution PDF, JPEG, or GIF files.
 
-\hypertarget{appendices}{%
-\subsubsection*{Appendices}\label{appendices}}
+\subsubsection*{Appendices}\label{appendices}
 \addcontentsline{toc}{subsubsection}{Appendices}
 
 PNAS prefers that authors submit individual source files to ensure
@@ -348,21 +334,21 @@ published in raw format and will not be edited or composed.
 \showacknow
 \pnasbreak
 
-\hypertarget{refs}{}
-\begin{CSLReferences}{0}{0}
-\leavevmode\vadjust pre{\hypertarget{ref-belkin2002using}{}}%
+\phantomsection\label{refs}
+\begin{CSLReferences}{0}{1}
+\bibitem[\citeproctext]{ref-belkin2002using}
 \CSLLeftMargin{1. }%
 \CSLRightInline{Belkin M, Niyogi P (2002) Using manifold stucture for
 partially labeled classification. \emph{Advances in Neural Information
 Processing Systems}, pp 929--936.}
 
-\leavevmode\vadjust pre{\hypertarget{ref-berard1994embedding}{}}%
+\bibitem[\citeproctext]{ref-berard1994embedding}
 \CSLLeftMargin{2. }%
 \CSLRightInline{Bérard P, Besson G, Gallot S (1994) Embedding riemannian
 manifolds by their heat kernel. \emph{Geometric \& Functional Analysis
 GAFA} 4(4):373--398.}
 
-\leavevmode\vadjust pre{\hypertarget{ref-coifman2005geometric}{}}%
+\bibitem[\citeproctext]{ref-coifman2005geometric}
 \CSLLeftMargin{3. }%
 \CSLRightInline{Coifman RR, et al. (2005) Geometric diffusions as a tool
 for harmonic analysis and structure definition of data: Diffusion maps.

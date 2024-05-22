@@ -7,7 +7,7 @@ See the rendered dashboard example here: **https://stephenturner.github.io/dstt-
 First, install the packages used by all the code here:
 
 ```r
-install.packages(c("knitr", "rmarkdown", "dplyr", "readr", "janitor", "flexdashboard", "reticulate", "rticles"))
+install.packages(c("knitr", "rmarkdown", "dplyr", "readr", "janitor", "flexdashboard", "reticulate", "rticles", "plotly", "thematic"))
 ```
 
 Render all documents in this repo:
